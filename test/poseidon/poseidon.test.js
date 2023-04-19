@@ -9,7 +9,7 @@ const assert = chai.assert;
 describe("Poseidon tests: ", function () {
     let poseidon;
     let F;
-    let circuit;
+    let circuit2_1, circuit5_1, circuit8_4;
 
     this.timeout(1000000);
 
