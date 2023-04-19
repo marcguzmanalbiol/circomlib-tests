@@ -1,7 +1,5 @@
 const chai = require("chai");
 const path = require("path");
-const crypto = require("crypto");
-const F1Field = require("ffjavascript").F1Field;
 const Scalar = require("ffjavascript").Scalar;
 exports.p = Scalar.fromString("21888242871839275222246405745257275088548364400416034343698204186575808495617");
 
@@ -19,21 +17,21 @@ describe("Comparators tests: ", function() {
     });
 
     describe("LessThan tests: ", function() {
-        it("Test the correctness LessThan circuit when first input is less than the second one. ", async () => {
+        it("Test the correctness of LessThan circuit when first input is less than the second one. ", async () => {
             const witness = await lessthan_circuit.calculateWitness({ "in": [1, 2] }, true);
     
             assert.equal(1, witness[1]);
     
         }).timeout(1000000);
     
-        it("Test the correctness LessThan circuit when inputs are equal. ", async () => {
+        it("Test the correctness of  LessThan circuit when inputs are equal. ", async () => {
             const witness = await lessthan_circuit.calculateWitness({ "in": [2, 2] }, true);
     
             assert.equal(0, witness[1]);
     
         }).timeout(1000000);
     
-        it("Test the correctness LessThan when first input is greater than the second one. ", async () => {
+        it("Test the correctness of  LessThan when first input is greater than the second one. ", async () => {
             const witness = await lessthan_circuit.calculateWitness({ "in": [2, 1] }, true);
     
             assert.equal(0, witness[1]);
@@ -43,21 +41,21 @@ describe("Comparators tests: ", function() {
     
 
     describe("LessEqThan tests ", function() {
-        it("Test the correctness LessEqThan circuit when first input is less than the second one. ", async () => {
+        it("Test the correctness of  LessEqThan circuit when first input is less than the second one. ", async () => {
             const witness = await lesseqthan_circuit.calculateWitness({ "in": [1, 2] }, true);
     
             assert.equal(1, witness[1]);
     
         }).timeout(1000000);
     
-        it("Test the correctness LessEqThan circuit when inputs are equal. ", async () => {
+        it("Test the correctness of  LessEqThan circuit when inputs are equal. ", async () => {
             const witness = await lesseqthan_circuit.calculateWitness({ "in": [2, 2] }, true);
     
             assert.equal(1, witness[1]);
     
         }).timeout(1000000);
     
-        it("Test the correctness LessEqThan when first input is greater than the second one. ", async () => {
+        it("Test the correctness of  LessEqThan when first input is greater than the second one. ", async () => {
             const witness = await lesseqthan_circuit.calculateWitness({ "in": [2, 1] }, true);
     
             assert.equal(0, witness[1]);
@@ -66,21 +64,21 @@ describe("Comparators tests: ", function() {
     });
 
     describe("IsEqual tests ", function() {
-        it("Test the correctness IsEqual circuit when first input is less than the second one. ", async () => {
+        it("Test the correctness of  IsEqual circuit when first input is less than the second one. ", async () => {
             const witness = await isequal_circuit.calculateWitness({ "in": [1, 2] }, true);
     
             assert.equal(0, witness[1]);
     
         }).timeout(1000000);
     
-        it("Test the correctness IsEqual circuit when inputs are equal. ", async () => {
+        it("Test the correctness of  IsEqual circuit when inputs are equal. ", async () => {
             const witness = await isequal_circuit.calculateWitness({ "in": [2, 2] }, true);
     
             assert.equal(1, witness[1]);
     
         }).timeout(1000000);
     
-        it("Test the correctness IsEqual when first input is greater than the second one. ", async () => {
+        it("Test the correctness of  IsEqual when first input is greater than the second one. ", async () => {
             const witness = await isequal_circuit.calculateWitness({ "in": [2, 1] }, true);
     
             assert.equal(0, witness[1]);
