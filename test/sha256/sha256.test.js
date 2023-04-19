@@ -52,8 +52,6 @@ describe("SHA256 tests: ", function() {
         const b = Buffer.from(testStr, "utf8");
         const inArr = buffer2bitArray(b);
 
-        console.log(inArr.length)
-
         const hash = crypto.createHash("sha256")
             .update(b)
             .digest("hex");

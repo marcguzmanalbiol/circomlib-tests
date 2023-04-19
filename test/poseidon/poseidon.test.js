@@ -18,6 +18,7 @@ describe("Poseidon tests: ", function () {
         F = poseidon.F;
         circuit2_1 = await wasm_tester(path.join(__dirname, "circuits", "poseidon2-1_test.circom"));
         circuit5_1 = await wasm_tester(path.join(__dirname, "circuits", "poseidon5-1_test.circom"));
+        circuit8_4 = await wasm_tester(path.join(__dirname, "circuits", "poseidon8-4_test.circom"));
     });
 
     it("Test to check the correctness of the Poseidon hash having as inputs [1, 2]:", async () => {
@@ -25,7 +26,6 @@ describe("Poseidon tests: ", function () {
 
         const res2 = poseidon([1,2]);
 
-        assert(F.eq(F.e(w), F.e(res2)));
         await circuit2_1.assertOut(w, {out : F.toObject(res2)});
         await circuit2_1.checkConstraints(w);
     });
@@ -35,9 +35,23 @@ describe("Poseidon tests: ", function () {
 
         const res2 = poseidon([1,2, 3, 4, 5]);
 
-        // assert(F.eq(F.e("7853200120776062878684798364095072458815029376092732009249414926327459813530"), F.e(res2)));
         await circuit5_1.assertOut(w, {out : F.toObject(res2)});
         await circuit5_1.checkConstraints(w);
+    });
+
+    it("Test to check the correctness of the Poseidon hash having 8 inptus and 4 outputs:", async () => {
+        const inputs = [1, 2, 3, 4, 5, 6, 7, 8];
+        const w = await circuit8_4.calculateWitness({inputs: inputs, initialState: 9});
+
+        const res2 = poseidon(inputs, 9, 4);
+
+        const res2f = [];
+        for (let i=0; i<res2.length; i++) {
+            res2f[i] = F.toObject(res2[i]);
+        }
+
+        await circuit8_4.assertOut(w, {out : res2f});
+        await circuit8_4.checkConstraints(w);
     });
 
 });
