@@ -46,7 +46,7 @@ describe("SHA256 tests: ", function() {
     });
 
     it("Test the correctness for the sha256 circuit with 304 input values. ", async () => {
-        const cir = await wasm_tester(path.join(__dirname, "circuits", "sha256_test.circom"));
+        const cir = await wasm_tester(path.join(__dirname, "circuits", "sha256.test.circom"));
 
         const testStr = "abcdbcdecdefdefgefghfghighijhijkijkljk"
         const b = Buffer.from(testStr, "utf8");

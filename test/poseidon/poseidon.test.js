@@ -16,9 +16,9 @@ describe("Poseidon tests: ", function () {
     before( async() => {
         poseidon = await buildPoseidon();
         F = poseidon.F;
-        circuit2_1 = await wasm_tester(path.join(__dirname, "circuits", "poseidon2-1_test.circom"));
-        circuit5_1 = await wasm_tester(path.join(__dirname, "circuits", "poseidon5-1_test.circom"));
-        circuit8_4 = await wasm_tester(path.join(__dirname, "circuits", "poseidon8-4_test.circom"));
+        circuit2_1 = await wasm_tester(path.join(__dirname, "circuits", "poseidon2-1.test.circom"));
+        circuit5_1 = await wasm_tester(path.join(__dirname, "circuits", "poseidon5-1.test.circom"));
+        circuit8_4 = await wasm_tester(path.join(__dirname, "circuits", "poseidon8-4.test.circom"));
     });
 
     it("Test to check the correctness of the Poseidon hash having as inputs [1, 2]:", async () => {
