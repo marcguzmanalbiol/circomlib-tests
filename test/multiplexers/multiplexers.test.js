@@ -65,28 +65,28 @@ describe("Multiplexers tests: ", function() {
 
     describe("Mux2 tests: ", function() {
 
-        it("Test the correctness of Mux2 circuit when. ", async () => {
+        it("Test the correctness of Mux2 circuit when the first input is selected. ", async () => {
             const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [0, 0] }, true);
 
             assert.equal(1, witness[1]);
 
         }).timeout(1000000);
 
-        it("Test the correctness of Mux2 circuit when. ", async () => {
+        it("Test the correctness of Mux2 circuit when the second input is selcted. ", async () => {
             const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [1, 0] }, true);
 
             assert.equal(2, witness[1]);
 
         }).timeout(1000000);
 
-        it("Test the correctness of Mux2 circuit when. ", async () => {
+        it("Test the correctness of Mux2 circuit when the third input is selcted. ", async () => {
             const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [0, 1] }, true);
 
             assert.equal(3, witness[1]);
 
         }).timeout(1000000);
 
-        it("Test the correctness of Mux2 circuit when. ", async () => {
+        it("Test the correctness of Mux2 circuit when the fourth input is selcted. ", async () => {
             const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [1, 1] }, true);
 
             assert.equal(4, witness[1]);
@@ -97,7 +97,7 @@ describe("Multiplexers tests: ", function() {
 
     describe("MultiMux2 tests: ", function() {
 
-        it("Test the correctness of MultiMux2 circuit when. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the first inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
                 [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
             ], "s": [0, 0] }, true);
@@ -111,7 +111,7 @@ describe("Multiplexers tests: ", function() {
 
         }).timeout(1000000);
 
-        it("Test the correctness of MultiMux2 circuit when. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the second inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
                 [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
             ], "s": [1, 0] }, true);
@@ -125,7 +125,7 @@ describe("Multiplexers tests: ", function() {
 
         }).timeout(1000000);
 
-        it("Test the correctness of MultiMux2 circuit when. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the third inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
                 [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
             ], "s": [0, 1] }, true);
@@ -139,7 +139,7 @@ describe("Multiplexers tests: ", function() {
 
         }).timeout(1000000);
 
-        it("Test the correctness of MultiMux2 circuit when. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the fourth inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
                 [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
             ], "s": [1, 1] }, true);
