@@ -14,7 +14,7 @@ describe("Switcher tests: ", function() {
         switcher_circuit = await wasm_tester(path.join(__dirname, "circuits", "switcher.test.circom"));
     });    
 
-    it("Test the correctness of Mux1 circuit when switch selector is deactivated. ", async () => {
+    it("Test the correctness of Switcher circuit when switch selector is deactivated. ", async () => {
         const witness = await switcher_circuit.calculateWitness({ "L": 1, "R": 2, "sel": 0}, true);
 
         assert.equal(1n, witness[1]);
