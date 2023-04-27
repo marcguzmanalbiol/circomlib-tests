@@ -41,14 +41,18 @@ describe("Poseidon tests: ", function () {
 
     it("Test to check the correctness of the Poseidon hash having 8 inptus and 4 outputs:", async () => {
         const inputs = [1, 2, 3, 4, 5, 6, 7, 8];
-        const w = await circuit8_4.calculateWitness({inputs: inputs, initialState: 9});
+        const w = await circuit8_4.calculateWitness({inputs: inputs, initialState: 0});
 
-        const res2 = poseidon(inputs, 9, 4);
+        const res2 = poseidon(inputs, 0, 4);
+
+        console.log(res2);
 
         const res2f = [];
         for (let i=0; i<res2.length; i++) {
             res2f[i] = F.toObject(res2[i]);
         }
+
+        console.log(res2f);
 
         await circuit8_4.assertOut(w, {out : res2f});
         await circuit8_4.checkConstraints(w);
