@@ -1,7 +1,9 @@
 const chai = require("chai");
 const path = require("path");
+const F1Field = require("ffjavascript").F1Field;
 const Scalar = require("ffjavascript").Scalar;
 exports.p = Scalar.fromString("21888242871839275222246405745257275088548364400416034343698204186575808495617");
+const Fr = new F1Field(exports.p);
 
 const assert = chai.assert;
 
@@ -20,16 +22,22 @@ describe("Multiplexers tests: ", function() {
     describe("Mux1 tests: ", function() {
 
         it("Test the correctness of Mux1 circuit when first input is selected. ", async () => {
-            const witness = await mux1_circuit.calculateWitness({ "c": [1, 2], "s": 0 }, true);
+            const witness = await mux1_circuit.calculateWitness({ "c": [
+                Fr.e("1"), 
+                Fr.e("2")
+            ], "s": Fr.e("0")}, true);
     
-            assert.equal(1, witness[1]);
+            assert.equal(Fr.e("1"), witness[1]);
     
         }).timeout(1000000);
 
         it("Test the correctness of Mux1 circuit when second input is selected. ", async () => {
-            const witness = await mux1_circuit.calculateWitness({ "c": [1, 2], "s": 1 }, true);
+            const witness = await mux1_circuit.calculateWitness({ "c": [
+                Fr.e("1"), 
+                Fr.e("2")
+            ], "s": Fr.e("1") }, true);
     
-            assert.equal(2, witness[1]);
+            assert.equal(Fr.e("2"), witness[1]);
     
         }).timeout(1000000);
 
@@ -38,10 +46,16 @@ describe("Multiplexers tests: ", function() {
     describe("MultiMux1 tests: ", function() {
 
         it("Test the correctness of MultiMux1 circuit when first inputs are selected. ", async () => {
-            const witness = await multimux1_circuit.calculateWitness({ "c": [[1, 2], [3, 4], [5, 6], [7, 8]], "s": 0 }, true);
+
+            const witness = await multimux1_circuit.calculateWitness({ "c": [
+                [Fr.e("1"), Fr.e("2")], 
+                [Fr.e("3"), Fr.e("4")], 
+                [Fr.e("5"), Fr.e("6")], 
+                [Fr.e("7"), Fr.e("8")]
+            ], "s": Fr.e("0") }, true);
 
             let output = witness.splice(1, 4);
-            let expectedOutput = [1n, 3n, 5n, 7n];
+            let expectedOutput = [Fr.e("1"), Fr.e("3"), Fr.e("5"), Fr.e("7")];
 
             for(i=0; i<4; i++) {
                 assert.equal(expectedOutput[i], output[i])
@@ -50,10 +64,15 @@ describe("Multiplexers tests: ", function() {
         }).timeout(1000000);
 
         it("Test the correctness of MultiMux1 circuit when second inputs are selected. ", async () => {
-            const witness = await multimux1_circuit.calculateWitness({ "c": [[1, 2], [3, 4], [5, 6], [7, 8]], "s": 1 }, true);
+            const witness = await multimux1_circuit.calculateWitness({ "c": [
+                [Fr.e("1"), Fr.e("2")], 
+                [Fr.e("3"), Fr.e("4")], 
+                [Fr.e("5"), Fr.e("6")], 
+                [Fr.e("7"), Fr.e("8")]
+            ], "s": Fr.e("1") }, true);
 
             let output = witness.splice(1, 4);
-            let expectedOutput = [2n, 4n, 6n, 8n];
+            let expectedOutput = [Fr.e("2"), Fr.e("4"), Fr.e("6"), Fr.e("8")];
 
             for(i=0; i<4; i++) {
                 assert.equal(expectedOutput[i], output[i])
@@ -66,30 +85,38 @@ describe("Multiplexers tests: ", function() {
     describe("Mux2 tests: ", function() {
 
         it("Test the correctness of Mux2 circuit when the first input is selected. ", async () => {
-            const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [0, 0] }, true);
+            const witness = await mux2_circuit.calculateWitness({ "c": [
+                Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")
+            ], "s": [Fr.e("0"), Fr.e("0")] }, true);
 
-            assert.equal(1, witness[1]);
-
-        }).timeout(1000000);
-
-        it("Test the correctness of Mux2 circuit when the second input is selcted. ", async () => {
-            const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [1, 0] }, true);
-
-            assert.equal(2, witness[1]);
+            assert.equal(Fr.e("1"), witness[1]);
 
         }).timeout(1000000);
 
-        it("Test the correctness of Mux2 circuit when the third input is selcted. ", async () => {
-            const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [0, 1] }, true);
+        it("Test the correctness of Mux2 circuit when the first input is selected. ", async () => {
+            const witness = await mux2_circuit.calculateWitness({ "c": [
+                Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")
+            ], "s": [Fr.e("1"), Fr.e("0")] }, true);
 
-            assert.equal(3, witness[1]);
+            assert.equal(Fr.e("2"), witness[1]);
 
         }).timeout(1000000);
 
-        it("Test the correctness of Mux2 circuit when the fourth input is selcted. ", async () => {
-            const witness = await mux2_circuit.calculateWitness({ "c": [1, 2, 3, 4], "s": [1, 1] }, true);
+        it("Test the correctness of Mux2 circuit when the first input is selected. ", async () => {
+            const witness = await mux2_circuit.calculateWitness({ "c": [
+                Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")
+            ], "s": [Fr.e("0"), Fr.e("1")] }, true);
 
-            assert.equal(4, witness[1]);
+            assert.equal(Fr.e("3"), witness[1]);
+
+        }).timeout(1000000);
+
+        it("Test the correctness of Mux2 circuit when the first input is selected. ", async () => {
+            const witness = await mux2_circuit.calculateWitness({ "c": [
+                Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")
+            ], "s": [Fr.e("1"), Fr.e("1")] }, true);
+
+            assert.equal(Fr.e("4"), witness[1]);
 
         }).timeout(1000000);
 
@@ -99,11 +126,14 @@ describe("Multiplexers tests: ", function() {
 
         it("Test the correctness of MultiMux2 circuit when the first inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
-                [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
-            ], "s": [0, 0] }, true);
+                [Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")], 
+                [Fr.e("5"), Fr.e("6"), Fr.e("7"), Fr.e("8")], 
+                [Fr.e("9"), Fr.e("10"), Fr.e("11"), Fr.e("12")], 
+                [Fr.e("13"), Fr.e("14"), Fr.e("15"), Fr.e("16")]
+            ], "s": [Fr.e("0"), Fr.e("0")] }, true);
 
             let output = witness.splice(1, 4);
-            let expectedOutput = [1n, 5n, 9n, 13n];
+            let expectedOutput = [Fr.e("1"), Fr.e("5"), Fr.e("9"), Fr.e("13")];
 
             for(i=0; i<4;i++) {
                 assert.equal(expectedOutput[i], output[i]);
@@ -111,13 +141,16 @@ describe("Multiplexers tests: ", function() {
 
         }).timeout(1000000);
 
-        it("Test the correctness of MultiMux2 circuit when the second inputs are selected. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the first inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
-                [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
-            ], "s": [1, 0] }, true);
+                [Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")], 
+                [Fr.e("5"), Fr.e("6"), Fr.e("7"), Fr.e("8")], 
+                [Fr.e("9"), Fr.e("10"), Fr.e("11"), Fr.e("12")], 
+                [Fr.e("13"), Fr.e("14"), Fr.e("15"), Fr.e("16")]
+            ], "s": [Fr.e("1"), Fr.e("0")] }, true);
 
             let output = witness.splice(1, 4);
-            let expectedOutput = [2n, 6n, 10n, 14n];
+            let expectedOutput = [Fr.e("2"), Fr.e("6"), Fr.e("10"), Fr.e("14")];
 
             for(i=0; i<4;i++) {
                 assert.equal(expectedOutput[i], output[i]);
@@ -125,13 +158,16 @@ describe("Multiplexers tests: ", function() {
 
         }).timeout(1000000);
 
-        it("Test the correctness of MultiMux2 circuit when the third inputs are selected. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the first inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
-                [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
-            ], "s": [0, 1] }, true);
+                [Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")], 
+                [Fr.e("5"), Fr.e("6"), Fr.e("7"), Fr.e("8")], 
+                [Fr.e("9"), Fr.e("10"), Fr.e("11"), Fr.e("12")], 
+                [Fr.e("13"), Fr.e("14"), Fr.e("15"), Fr.e("16")]
+            ], "s": [Fr.e("0"), Fr.e("1")] }, true);
 
             let output = witness.splice(1, 4);
-            let expectedOutput = [3n, 7n, 11n, 15n];
+            let expectedOutput = [Fr.e("3"), Fr.e("7"), Fr.e("11"), Fr.e("15")];
 
             for(i=0; i<4;i++) {
                 assert.equal(expectedOutput[i], output[i]);
@@ -139,13 +175,16 @@ describe("Multiplexers tests: ", function() {
 
         }).timeout(1000000);
 
-        it("Test the correctness of MultiMux2 circuit when the fourth inputs are selected. ", async () => {
+        it("Test the correctness of MultiMux2 circuit when the first inputs are selected. ", async () => {
             const witness = await multimux2_circuit.calculateWitness({ "c": [
-                [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]
-            ], "s": [1, 1] }, true);
+                [Fr.e("1"), Fr.e("2"), Fr.e("3"), Fr.e("4")], 
+                [Fr.e("5"), Fr.e("6"), Fr.e("7"), Fr.e("8")], 
+                [Fr.e("9"), Fr.e("10"), Fr.e("11"), Fr.e("12")], 
+                [Fr.e("13"), Fr.e("14"), Fr.e("15"), Fr.e("16")]
+            ], "s": [Fr.e("1"), Fr.e("1")] }, true);
 
             let output = witness.splice(1, 4);
-            let expectedOutput = [4n, 8n, 12n, 16n];
+            let expectedOutput = [Fr.e("4"), Fr.e("8"), Fr.e("12"), Fr.e("16")];
 
             for(i=0; i<4;i++) {
                 assert.equal(expectedOutput[i], output[i]);
